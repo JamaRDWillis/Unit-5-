@@ -11,9 +11,14 @@ import AlamofireImage
 import MessageInputBar
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MessageInputBarDelegate {
-
+    
+    func onRefresh() {
+ 
+    }
+    
     var posts = [PFObject]()
     var selectedPost : PFObject!
+    var refreshControl: UIRefreshControl!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,7 +26,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var showsCommentBar = false
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+     
         commentBar.inputTextView.placeholder = "Add a comment..."
         commentBar.sendButton.title = "Post"
         commentBar.delegate = self
@@ -80,6 +86,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         
         let query = PFQuery(className:"Posts")
         query.includeKeys(["author", "comments", "comments.author"])
